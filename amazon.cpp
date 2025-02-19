@@ -5,6 +5,7 @@
 #include <vector>
 #include <iomanip>
 #include <algorithm>
+#include "mydatastore.h"
 #include "product.h"
 #include "db_parser.h"
 #include "product_parser.h"
@@ -29,9 +30,7 @@ int main(int argc, char* argv[])
      * Declare your derived DataStore object here replacing
      *  DataStore type to your derived type
      ****************/
-    DataStore ds;
-
-
+    MyDataStore ds;
 
     // Instantiate the individual section and product parsers we want
     ProductSectionParser* productSectionParser = new ProductSectionParser;
@@ -70,7 +69,7 @@ int main(int argc, char* argv[])
         stringstream ss(line);
         string cmd;
         if((ss >> cmd)) {
-            if( cmd == "AND") {
+            if( cmd == "AND" ) {
                 string term;
                 vector<string> terms;
                 while(ss >> term) {
@@ -90,7 +89,7 @@ int main(int argc, char* argv[])
                 hits = ds.search(terms, 1);
                 displayProducts(hits);
             }
-            else if ( cmd == "QUIT") {
+            else if ( cmd == "QUIT" ) {
                 string filename;
                 if(ss >> filename) {
                     ofstream ofile(filename.c_str());
@@ -100,10 +99,57 @@ int main(int argc, char* argv[])
                 done = true;
             }
 	    /* Add support for other commands here */
-
-
-
-
+            else if ( cmd == "ADD" ) {
+                // Convert username to user
+                string username;
+                User* u = nullptr;
+                if (ss >> username) {
+                    u = ds.findUser(username);
+                }
+                // Convert index to product
+                size_t hit;
+                Product* p = nullptr;
+                if (ss >> hit && hit > 0 && hit <= hits.size()) {
+                    p = hits[hit - 1];
+                }
+                // Add to cart or print invalid if bad input
+                if (ss.fail() || u == nullptr || p == nullptr) {
+                    cout << "Invalid request" << endl;
+                }
+                else {
+                    ds.addToCart(u, p);
+                }
+            }
+            else if ( cmd == "VIEWCART" ) {
+                // Convert username to user
+                string username;
+                User* u = nullptr;
+                if (ss >> username) {
+                    u = ds.findUser(username);
+                }
+                // Add to cart or print invalid if bad input
+                if (ss.fail() || u == nullptr) {
+                    cout << "Invalid request" << endl;
+                }
+                else {
+                    ds.viewCart(u);
+                }
+            }
+            else if ( cmd == "BUYCART" ) {
+                // Convert username to user
+                string username;
+                User* u = nullptr;
+                if (ss >> username) {
+                    u = ds.findUser(username);
+                }
+                // Add to cart or print invalid if bad input
+                if (ss.fail() || u == nullptr) {
+                    cout << "Invalid request" << endl;
+                }
+                else {
+                    ds.buyCart(u);
+                }
+            }
             else {
                 cout << "Unknown command" << endl;
             }
