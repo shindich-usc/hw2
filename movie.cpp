@@ -25,10 +25,10 @@ std::string Movie::getRating() const
 
 std::set<std::string> Movie::keywords() const
 {
-    // Add words in author name to keywords
+    // Add words in genre and rating to keywords
     std::set<std::string> allKeywords = parseStringToWords(name_);
-    allKeywords.insert(genre_);
-    allKeywords.insert(rating_);
+    allKeywords.insert(convToLower(genre_));
+    allKeywords.insert(convToLower(rating_));
     return allKeywords;
 }
 

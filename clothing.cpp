@@ -29,7 +29,7 @@ std::set<std::string> Clothing::keywords() const
     std::set<std::string> nameKeywords = parseStringToWords(name_);
     std::set<std::string> brandKeywords = parseStringToWords(brand_);
     std::set<std::string> allKeywords = setUnion(nameKeywords, brandKeywords);
-    allKeywords.insert(size_);
+    allKeywords.insert(convToLower(size_));
     return allKeywords;
 }
 
