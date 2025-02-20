@@ -129,7 +129,7 @@ int main(int argc, char* argv[])
                 }
                 // Add to cart or print invalid if bad input
                 if (ss.fail() || u == nullptr) {
-                    cout << "Invalid request" << endl;
+                    cout << "Invalid username" << endl;
                 }
                 else {
                     ds.viewCart(u);
@@ -144,7 +144,7 @@ int main(int argc, char* argv[])
                 }
                 // Add to cart or print invalid if bad input
                 if (ss.fail() || u == nullptr) {
-                    cout << "Invalid request" << endl;
+                    cout << "Invalid username" << endl;
                 }
                 else {
                     ds.buyCart(u);
