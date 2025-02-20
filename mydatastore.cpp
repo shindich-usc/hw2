@@ -82,13 +82,16 @@ void MyDataStore::viewCart(User* u)
 {
     std::deque<Product*> userCart = userCarts_[u];
     for (size_t i = 0; i < userCart.size(); i++) {
-        cout << i + 1 << ": " << userCart[i]->getName() << endl;
+        cout << "Item " << i + 1 << endl;
+        cout << userCart[i]->displayString() << endl;
+        cout << endl;
     }
 }
 
 void MyDataStore::buyCart(User* u)
 {
-    for (size_t i = 0; i < userCarts_[u].size(); i++) {
+    size_t cartSize = userCarts_[u].size();
+    for (size_t i = 0; i < cartSize; i++) {
         Product* frontItem = userCarts_[u].front();
         if ((frontItem->getQty() > 0) && (u->getBalance() >= frontItem->getPrice())) {
             userCarts_[u].pop_front();
