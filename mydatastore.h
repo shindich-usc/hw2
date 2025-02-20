@@ -11,6 +11,7 @@
 class MyDataStore: public DataStore {
 public:
     MyDataStore();
+    ~MyDataStore();
     void addProduct(Product* p);
     void addUser(User* u);
     User* findUser(std::string& uname);

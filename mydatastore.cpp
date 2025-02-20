@@ -11,6 +11,16 @@ MyDataStore::MyDataStore()
 
 }
 
+MyDataStore::~MyDataStore()
+{
+    for (std::set<Product*>::iterator it = products_.begin(); it != products_.end(); ++it) {
+        delete *it;
+    }
+    for (std::set<User*>::iterator it = users_.begin(); it != users_.end(); ++it) {
+        delete *it;
+    }
+}
+
 void MyDataStore::addProduct(Product* p)
 {
     products_.insert(p);

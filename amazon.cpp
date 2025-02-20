@@ -154,8 +154,8 @@ int main(int argc, char* argv[])
                 cout << "Unknown command" << endl;
             }
         }
-
     }
+    // Delete parsers
     return 0;
 }
 
